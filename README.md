@@ -4,7 +4,23 @@ A production-ready Task Management System built with a Clean Architecture, using
 
 ---
 
-## 🛠️ Mandatory Architecture & Design Patterns
+## 📸 Screenshots
+
+### 📊 Dashboard & Tasks List
+![Dashboard Page](public/screenshots/dashboard.png)
+
+### 📄 Task Details & AI Insights
+![Task Details Page](public/screenshots/task_details.png)
+
+### ✏️ Task Creation & Editing
+![Task Edit Page](public/screenshots/task_edit.png)
+
+### 🔐 Login Page
+![Login Page](public/screenshots/login.png)
+
+---
+
+## 🛠️ Architecture & Design Patterns
 
 The project strictly follows the clean architecture guidelines, isolating database actions from the controller by delegating to repository interfaces and business logic service layers. It also implements the **Decorator Pattern** via `CachingTaskRepository` to seamlessly add a caching layer on top of the database without modifying the core repository logic.
 
@@ -108,33 +124,72 @@ After running the database seeders, you can use the following accounts to log in
 
 ## 🚀 Setup & Run Instructions
 
-### 1. Database Configuration
-Make sure your local MySQL service is running and configure `.env`:
-```env
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=taskmanagement
-DB_USERNAME=root
-DB_PASSWORD=
-```
+Choose one of the setup methods below:
 
-### 2. Setup Database & Seed
-Run migrations and seed the database with initial users and mockup tasks:
-```bash
-php artisan migrate:fresh --seed
-```
+### 🐳 Option A: Docker Setup (Laravel Sail)
 
-This generates the default users (see **Default Credentials** above) and assigns them initial mockup tasks.
+Laravel Sail is included and pre-configured. It provides a containerized PHP, MySQL, and Redis environment out-of-the-box.
 
-### 3. Run Dev Server
-```bash
-# Terminal 1: Compile Assets
-npm run dev
+1. **Start the Containers**:
+   ```bash
+   # Using Sail:
+   ./vendor/bin/sail up -d
 
-# Terminal 2: Start PHP Server
-php artisan serve
-```
+   # Or using Docker Compose directly:
+   docker compose up -d
+   ```
+   *(On Windows, run in WSL2 or use PowerShell/Git Bash).*
+
+2. **Run Migrations & Seed**:
+   ```bash
+   # Using Sail:
+   ./vendor/bin/sail artisan migrate:fresh --seed
+
+   # Or using Docker Compose directly:
+   docker compose exec laravel.test php artisan migrate:fresh --seed
+   ```
+
+3. **Run Dev Server**:
+   ```bash
+   # Using Sail:
+   ./vendor/bin/sail npm run dev
+
+   # Or using Docker Compose directly:
+   docker compose exec laravel.test npm run dev
+   ```
+
+---
+
+### 💻 Option B: Local Setup (Without Docker)
+
+Use this method if running Laravel locally (e.g., via Laragon, XAMPP, or native PHP/MySQL).
+
+1. **Database Configuration**:
+   Ensure your local MySQL service is running and configure `.env`:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=taskmanagement
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+2. **Run Migrations & Seed**:
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
+   *This generates the default users (see **Default Credentials** above) and assigns them initial mockup tasks.*
+
+3. **Run Dev Server**:
+   ```bash
+   # Terminal 1: Compile Assets
+   npm run dev
+
+   # Terminal 2: Start PHP Server
+   php artisan serve
+   ```
 
 ---
 *Clean design implemented pixel-close from design spec.*
+
